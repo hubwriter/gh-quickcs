@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# gh-doccs = GitHub documentation codespace
+# This extension for GitHub CLI creates a codespace for the docs-internal repo.
+# Use: gh doccs 
+# Created by Alistair Christie (@hubwriter) 2023-01-26
+
+set -e
+
+REPO="github/docs-internal"
+DEVCONTAINER=".devcontainer/devcontainer.json"
+TIMEOUT="3h"
+MACHINE="xLargePremiumLinux"
+RETENTION="720h"
+
+echo -e "\nCreate a new codespace for the docs-internal repo."
+read -p "Enter a codespace display name: " DISPLAYNAME
+
+OUTPUT=$(eval "gh cs create -R $REPO --devcontainer-path $DEVCONTAINER -d '$DISPLAYNAME' --idle-timeout $TIMEOUT -m $MACHINE --retention-period $RETENTION")
+
+if [ ! -z "$OUTPUT" ]
+then
+  echo "The internal name for your new codespace is: $OUTPUT"
+  eval "gh codespace code -w -c '$OUTPUT'"
+fi
