@@ -14,7 +14,7 @@ This extension creates a codespaces from the docs-internal repository (assuming 
 
    _Installation requires a minimum version (2.0.0) of the the GitHub CLI that supports extensions._
 
-1. Clone the repo
+1. Clone the repo by running either of these commands from the directory that you want to be the parent of your local copy of the repo:
 
    ```bash
    # git
@@ -27,7 +27,7 @@ This extension creates a codespaces from the docs-internal repository (assuming 
 1. cd into it
 
    ```bash
-   cd gh-dash
+   cd gh-doccs
    ```
 
 1. Install it locally
