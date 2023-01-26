@@ -44,3 +44,10 @@ gh doccs
 ```
 Then enter a display name for the codespace. Don't use quote marks around the name. The name can include spaces and hyphens.
 
+For example:<br>
+<img width="514" alt="image" src="https://user-images.githubusercontent.com/54933897/214870852-ea3e1845-2122-45e1-8df4-b9d23a411cd5.png">
+
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/54933897/214872075-4ce2bb50-12ed-4c49-b8a3-d857a13baf37.png">
+
+
+   ```
