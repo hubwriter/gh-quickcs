@@ -18,7 +18,7 @@ You can also change any of the other settings for the codespace in that file.
 
 1. bls:
 
-   ```shell{:copy}
+   ```
    gh ext install https://github.com/hubwriter/gh-quickcs
    ```
 
