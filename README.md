@@ -20,7 +20,18 @@ You can also change any of the other settings for the codespace in that file.
 
    ```
    gh ext install https://github.com/hubwriter/gh-quickcs
+   
+   Cloning into '/Users/yourname/.local/share/gh/extensions/gh-quickcs'...
+   remote: Enumerating objects: 35, done.
+   remote: Counting objects: 100% (35/35), done.
+   remote: Compressing objects: 100% (30/30), done.
+   remote: Total 35 (delta 6), reused 24 (delta 3), pack-reused 0
+   Receiving objects: 100% (35/35), 9.65 KiB | 4.83 MiB/s, done.
+   Resolving deltas: 100% (6/6), done.
+   ✓ Installed extension https://github.com/hubwriter/gh-quickcs
    ```
+   
+1. Edit the `/Users/yourname/.local/share/gh/extensions/gh-quickcs` file
 
 ## ⚡️ Usage
 
@@ -32,11 +43,7 @@ Then enter a display name for the codespace. Don't use quote marks around the na
 
 For example:<br>
 
+<img width="567" alt="image" src="https://user-images.githubusercontent.com/54933897/215718987-45e4b2fa-4717-4dc0-a935-ce1498c3465a.png">
 
+<img width="590" alt="image" src="https://user-images.githubusercontent.com/54933897/215719228-ffc3ddc0-4cb8-4c64-9e45-b6f701895277.png">
 
-<img width="514" alt="image" src="https://user-images.githubusercontent.com/54933897/214870852-ea3e1845-2122-45e1-8df4-b9d23a411cd5.png">
-
-<img width="600" alt="image" src="https://user-images.githubusercontent.com/54933897/214872075-4ce2bb50-12ed-4c49-b8a3-d857a13baf37.png">
-
-
-   ```
