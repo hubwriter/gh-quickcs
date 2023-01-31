@@ -1,12 +1,14 @@
-# gh-doccs
+# gh-quickcs
 
-A GitHub CLI extension to create a new codespace for docs work.
+A GitHub CLI extension that lets you quickly create a new codespace for a preconfigured repository.
 
-This extension creates a codespaces from the docs-internal repository (assuming you have access to it), and then opens the codespace so that you can start using it.
+Before using this extension, change the value of `REPO` in [the gh-quickcs file](https://github.com/hubwriter/quickcs/blob/main/gh-doccs) to the URL `OWNER/REPO-NAME` of your repo - for example:
 
-"doccs" = docs codespace
+```
+REPO="your-name/your-repo"
+```
 
-
+You can also change any of the other settings for the codespace in that file.
 
 ## 📦 Installation
 
@@ -18,21 +20,21 @@ This extension creates a codespaces from the docs-internal repository (assuming 
 
    ```bash
    # git
-   git clone https://github.com/hubwriter/gh-doccs
+   git clone https://github.com/hubwriter/gh-quickcs
 
    # GitHub CLI
-   gh repo clone hubwriter/gh-doccs
+   gh repo clone hubwriter/gh-quickcs
    ```
 
 1. cd into it
 
    ```bash
-   cd gh-doccs
+   cd gh-quickcs
    ```
 
 1. Install it locally
    ```bash
-   gh extension install .
+   gh ext install .
    ```
 
 
@@ -40,7 +42,7 @@ This extension creates a codespaces from the docs-internal repository (assuming 
 
 Run
 ```sh
-gh doccs
+gh quickcs
 ```
 Then enter a display name for the codespace. Don't use quote marks around the name. The name can include spaces and hyphens.
 
