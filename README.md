@@ -31,7 +31,7 @@ You can also change any of the other settings for the codespace in that file.
    ✓ Installed extension https://github.com/hubwriter/gh-quickcs
    ```
    
-1. Edit the `/Users/yourname/.local/share/gh/extensions/gh-quickcs` file
+1. Edit the `/Users/YOURNAME/.local/share/gh/extensions/gh-quickcs` file, changing the value of `REPO` to the owner and name that identifies the repository for which you want to create codespaces - for example: `my-name/my-repo`.
 
 ## ⚡️ Usage
 
