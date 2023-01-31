@@ -16,27 +16,11 @@ You can also change any of the other settings for the codespace in that file.
 
    _Installation requires a minimum version (2.0.0) of the the GitHub CLI that supports extensions._
 
-1. Clone the repo by running either of these commands from the directory that you want to be the parent of your local copy of the repo:
+1. bls:
 
-   ```bash
-   # git
-   git clone https://github.com/hubwriter/gh-quickcs
-
-   # GitHub CLI
-   gh repo clone https://github.com/hubwriter/quickcs
+   ```shell{:copy}
+   gh ext install https://github.com/hubwriter/gh-quickcs
    ```
-
-1. cd into it
-
-   ```bash
-   cd gh-quickcs
-   ```
-
-1. Install it locally
-   ```bash
-   gh ext install .
-   ```
-
 
 ## ⚡️ Usage
 
