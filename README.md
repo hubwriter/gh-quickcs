@@ -23,7 +23,7 @@ You can also change any of the other settings for the codespace in that file.
    git clone https://github.com/hubwriter/gh-quickcs
 
    # GitHub CLI
-   gh repo clone hubwriter/gh-quickcs
+   gh repo clone https://github.com/hubwriter/quickcs
    ```
 
 1. cd into it
