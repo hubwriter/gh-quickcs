@@ -2,7 +2,7 @@
 
 A GitHub CLI extension that lets you quickly create a new codespace for a preconfigured repository.
 
-Before using this extension, change the value of `REPO` in [the gh-quickcs file](https://github.com/hubwriter/quickcs/blob/main/gh-doccs) to the URL `OWNER/REPO-NAME` of your repo - for example:
+After installing this extension, _before you use it,_ change the value of `REPO` in [the gh-quickcs file](https://github.com/hubwriter/quickcs/blob/main/gh-doccs) to the URL `OWNER/REPO-NAME` of your repo - for example:
 
 ```
 REPO="your-name/your-repo"
