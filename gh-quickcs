@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-# gh-doccs = GitHub documentation codespace
-# This extension for GitHub CLI creates a codespace for the docs-internal repo.
-# Use: gh doccs 
+# gh-quickcs = quick codespace
+# This extension for GitHub CLI creates a codespace for a preconfigured repo.
+# Use: gh quickcs 
 # Created by Alistair Christie (@hubwriter) 2023-01-26
 
 set -e
 
-REPO="github/docs-internal"
+REPO="OWNER/REPONAME"  # e.g. hubwriter/quickcs
 DEVCONTAINER=".devcontainer/devcontainer.json"
 TIMEOUT="3h"
 MACHINE="xLargePremiumLinux"
