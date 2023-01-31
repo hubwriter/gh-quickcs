@@ -16,7 +16,7 @@ You can also change any of the other settings for the codespace in that file.
 
    _Installation requires a minimum version (2.0.0) of the the GitHub CLI that supports extensions._
 
-1. bls:
+1. Use the GitHub CLI to install the extension:
 
    ```
    gh ext install https://github.com/hubwriter/gh-quickcs
@@ -31,6 +31,9 @@ gh quickcs
 Then enter a display name for the codespace. Don't use quote marks around the name. The name can include spaces and hyphens.
 
 For example:<br>
+
+
+
 <img width="514" alt="image" src="https://user-images.githubusercontent.com/54933897/214870852-ea3e1845-2122-45e1-8df4-b9d23a411cd5.png">
 
 <img width="600" alt="image" src="https://user-images.githubusercontent.com/54933897/214872075-4ce2bb50-12ed-4c49-b8a3-d857a13baf37.png">
