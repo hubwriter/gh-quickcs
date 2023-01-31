@@ -19,7 +19,7 @@ You can also change any of the other settings for the codespace in that file.
 1. Use the GitHub CLI to install the extension:
 
    ```
-   gh ext install https://github.com/hubwriter/gh-quickcs
+   gh ext install hubwriter/gh-quickcs
    
    Cloning into '/Users/yourname/.local/share/gh/extensions/gh-quickcs'...
    remote: Enumerating objects: 35, done.
@@ -28,7 +28,7 @@ You can also change any of the other settings for the codespace in that file.
    remote: Total 35 (delta 6), reused 24 (delta 3), pack-reused 0
    Receiving objects: 100% (35/35), 9.65 KiB | 4.83 MiB/s, done.
    Resolving deltas: 100% (6/6), done.
-   ✓ Installed extension https://github.com/hubwriter/gh-quickcs
+   ✓ Installed extension hubwriter/gh-quickcs
    ```
    
 1. Edit the `/Users/YOURNAME/.local/share/gh/extensions/gh-quickcs` file, changing the value of `REPO` to the owner and name that identifies the repository for which you want to create codespaces - for example: `my-name/my-repo`.
