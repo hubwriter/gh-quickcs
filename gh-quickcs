@@ -13,7 +13,7 @@ TIMEOUT="3h"
 MACHINE="standardLinux32gb" # To list available machine types for a repo use:
                             # gh api --jq ".machines[].name" repos/OWNER/REPONAME/codespaces/machines
 RETENTION="720h"
-OPEN_IN_BROWSER=false # Set to true to open the codespace in a browser, or false to open in VS Code.
+OPEN_IN_BROWSER=true # Set to true to open the codespace in a browser, or false to open in VS Code.
 REQUEST_BRANCH=true # Set to true to request a branch name, or false to use the default branch.
 
 echo -e "\nCreate a new codespace for the $REPO repo."
