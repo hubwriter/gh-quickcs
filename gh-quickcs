@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # gh-quickcs = quick codespace
 # This extension for GitHub CLI creates a codespace for a preconfigured repo.
 # Use: gh quickcs 
