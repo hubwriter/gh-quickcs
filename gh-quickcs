@@ -2,17 +2,18 @@
 
 # gh-quickcs = quick codespace
 # This extension for GitHub CLI creates a codespace for a preconfigured repo.
-# Use: gh quickcs 
+# Use: gh quickcs
 # Created by Alistair Christie (@hubwriter) 2023-01-26
 
 set -e
 
-REPO="OWNER/REPONAME"  # e.g. hubwriter/quickcs
+REPO="github/docs-internal"  # e.g. hubwriter/quickcs
 DEVCONTAINER=".devcontainer/devcontainer.json"
 TIMEOUT="3h"
 MACHINE="standardLinux32gb" # To list available machine types for a repo use:
                             # gh api --jq ".machines[].name" repos/OWNER/REPONAME/codespaces/machines
 RETENTION="720h"
+OPEN_IN_BROWSER=false # Set to true to open the codespace in a browser, or false to open in VS Code.
 REQUEST_BRANCH=true # Set to true to request a branch name, or false to use the default branch.
 
 echo -e "\nCreate a new codespace for the $REPO repo."
@@ -22,7 +23,7 @@ if [ "$REQUEST_BRANCH" = true ] ; then
     read -p "Enter a name for a new branch (or press Enter to use the default branch): " BRANCH
 fi
 
-CLI_COMMAND="gh cs create -R $REPO --devcontainer-path $DEVCONTAINER -d '$DISPLAYNAME' --idle-timeout $TIMEOUT -m $MACHINE --retention-period $RETENTION"
+CREATE_COMMAND="gh cs create -R $REPO --devcontainer-path $DEVCONTAINER -d '$DISPLAYNAME' --idle-timeout $TIMEOUT -m $MACHINE --retention-period $RETENTION"
 
 if [[ "$BRANCH" =~ ( |\') ]]
 then
@@ -30,7 +31,7 @@ then
   exit 1
 elif [ ! -z ${BRANCH+x} ] # If BRANCH is set and not empty
 then
-  CLI_COMMAND="$CLI_COMMAND -b $BRANCH"
+  CREATE_COMMAND="$CREATE_COMMAND -b $BRANCH"
   # Get the SHA for the default branch:
   SHA=$(eval "gh api repos/$REPO/git/ref/heads/main --jq .object.sha")
   # Create a remote branch
@@ -39,11 +40,18 @@ then
   eval $API_CALL > /dev/null
 fi
 
-echo $CLI_COMMAND; echo
-OUTPUT=$(eval $CLI_COMMAND)
+echo $CREATE_COMMAND; echo
+OUTPUT=$(eval $CREATE_COMMAND)
+
+if [ "$OPEN_IN_BROWSER" = true ]
+then
+  OPEN_COMMAND="gh codespace code -w -c '$OUTPUT'"
+else
+  OPEN_COMMAND="gh codespace code -c '$OUTPUT'"
+fi
 
 if [ ! -z "$OUTPUT" ]
 then
   echo "The internal name for your new codespace is: $OUTPUT"
-  eval "gh codespace code -w -c '$OUTPUT'"
+  eval $OPEN_COMMAND
 fi
