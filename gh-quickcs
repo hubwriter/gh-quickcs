@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # gh-quickcs = quick codespace
 # This extension for GitHub CLI creates a codespace for a preconfigured repo.
 # Use: gh quickcs 
@@ -12,11 +10,34 @@ DEVCONTAINER=".devcontainer/devcontainer.json"
 TIMEOUT="3h"
 MACHINE="xLargePremiumLinux"
 RETENTION="720h"
+REQUEST_BRANCH=true # Set to true to request a branch name, or false to use the default branch.
 
-echo -e "\nCreate a new codespace for the docs-internal repo."
+echo -e "\nCreate a new codespace for the $REPO repo."
 read -p "Enter a codespace display name: " DISPLAYNAME
 
-OUTPUT=$(eval "gh cs create -R $REPO --devcontainer-path $DEVCONTAINER -d '$DISPLAYNAME' --idle-timeout $TIMEOUT -m $MACHINE --retention-period $RETENTION")
+if [ "$REQUEST_BRANCH" = true ] ; then
+    read -p "Enter a name for a new branch (or press Enter to use the default branch): " BRANCH
+fi
+
+CLI_COMMAND="gh cs create -R $REPO --devcontainer-path $DEVCONTAINER -d '$DISPLAYNAME' --idle-timeout $TIMEOUT -m $MACHINE --retention-period $RETENTION"
+
+if [[ "$BRANCH" =~ ( |\') ]]
+then
+  echo "Branch names cannot contain spaces or single quotes."
+  exit 1
+elif [ ! -z ${BRANCH+x} ] # If BRANCH is set and not empty
+then
+  CLI_COMMAND="$CLI_COMMAND -b $BRANCH"
+  # Get the SHA for the default branch:
+  SHA=$(eval "gh api repos/$REPO/git/ref/heads/main --jq .object.sha")
+  # Create a remote branch
+  API_CALL="gh api --method POST -H \"Accept: application/vnd.github+json\" /repos/$REPO/git/refs -f ref=\"refs/heads/$BRANCH\" -f sha=\"$SHA\""
+  echo; echo $API_CALL
+  eval $API_CALL > /dev/null
+fi
+
+echo $CLI_COMMAND; echo
+OUTPUT=$(eval $CLI_COMMAND)
 
 if [ ! -z "$OUTPUT" ]
 then
