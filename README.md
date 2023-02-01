@@ -35,15 +35,18 @@ You can also change any of the other settings for the codespace in that file.
 
 ## ⚡️ Usage
 
-Run
-```sh
-gh quickcs
-```
-Then enter a display name for the codespace. Don't use quote marks around the name. The name can include spaces and hyphens.
+1. Run
+
+   ```sh
+   gh quickcs
+   ```
+   
+1. Enter a display name for the codespace. Don't use quote marks around the name. The name can include spaces and hyphens.
+1. Enter the name of a new branch you want to create, or press Enter to use the default branch. (Note this option can be turned off by setting `REQUEST_BRANCH` to `false` in the `gh-doccs` script.)
 
 For example:<br>
+<img width="1057" alt="image" src="https://user-images.githubusercontent.com/54933897/216063640-2d773aae-595e-45c2-9f07-05ce256dc50c.png">
 
-<img width="567" alt="image" src="https://user-images.githubusercontent.com/54933897/215718987-45e4b2fa-4717-4dc0-a935-ce1498c3465a.png">
+<img width="580" alt="image" src="https://user-images.githubusercontent.com/54933897/216062894-b88986a4-39e8-49ea-969c-93704c81c8d6.png">
 
-<img width="590" alt="image" src="https://user-images.githubusercontent.com/54933897/215719228-ffc3ddc0-4cb8-4c64-9e45-b6f701895277.png">
 
