@@ -6,31 +6,79 @@
 # Created by Alistair Christie (@hubwriter) 2023-01-26
 
 set -e
+CONFIG_FILE=~/.gh-quickcs.cfg
 
-REPO="github/docs-internal"  # e.g. hubwriter/quickcs
-DEVCONTAINER=".devcontainer/devcontainer.json"
-TIMEOUT="3h"
-MACHINE="standardLinux32gb" # To list available machine types for a repo use:
-                            # gh api --jq ".machines[].name" repos/OWNER/REPONAME/codespaces/machines
-RETENTION="720h"
-OPEN_IN_BROWSER=true # Set to true to open the codespace in a browser, or false to open in VS Code.
-REQUEST_BRANCH=true # Set to true to request a branch name, or false to use the default branch.
+# Create a config file if it doesn't exist.
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "The configuration file $CONFIG_FILE does not exist. Let's create it."
+    echo "This is a one-time setup task."; echo
+    read -p "Enter the name of the repository you want to use for your codespace (e.g. repo-owner/repo-name): " REPO
+    eval "gh api -H \"Accept: application/vnd.github+json\" /repos/$REPO" >/dev/null 2>&1 || { echo "The repository $REPO does not exist. Please try again."; exit 1; }
+    read -p "Enter the path to a custom devcontainer.json file (or press Enter for the default configuration): " DEVCONTAINER
+    echo "The available machine types for this repository are are:"
+    machine_array=( $(eval gh api --jq ".machines[].name" repos/$REPO/codespaces/machines) )
+    printf -v machine_list '%s, ' "${machine_array[@]}" # Join the array elements with commas
+    echo "${machine_list%,?}" # Remove the final comma from the list
+    until [[ $found_in_array ]]; do
+        read -p "Enter the machine type for your codespace (or press Enter to use basicLinux32gb): " MACHINE
+        if [ -z "${MACHINE}" ]; then MACHINE="basicLinux32gb"; fi
+        for item in "${machine_array[@]}"; do
+            [[ $MACHINE == "$item" ]] && found_in_array=true
+        done
+        if [ ! $found_in_array ]; then echo "$MACHINE is not a valid machine type for this repository."; fi
+    done
+    until [[ $TIMEOUT == @([1-9]*([0-9])) && $TIMEOUT -gt 4 && $TIMEOUT -le 241 ]]; do
+        if [ ! -z ${TIMEOUT+x} ]; then echo "Please enter a number in the range 5-240."; fi
+        read -p "Enter the idle timeout for your codespace (in whole minutes between 5 and 240): " TIMEOUT
+    done
+    until [[ $RETENTION == @(0|[1-9]*([0-9])) && $RETENTION -le 720 ]]; do
+        if [ ! -z ${RETENTION+x} ]; then echo "Please enter a number in the range 0-720."; fi
+        read -p "Enter the retention period for your codespace (in whole hours between 0 and 720): " RETENTION
+    done
+    read -p "Do you want to create a new branch when you create a codespace? (Y/n): " REQUEST_BRANCH
+    if [ "$REQUEST_BRANCH" == "n" ]; then
+        REQUEST_BRANCH="false"
+    else
+        REQUEST_BRANCH="true"
+    fi
+    read -p "Do you want to open the codespace in your browser? (Y/n): " OPEN_IN_BROWSER
+    if [ "$OPEN_IN_BROWSER" == "n" ]; then
+        OPEN_IN_BROWSER="false"
+    else
+        OPEN_IN_BROWSER="true"
+    fi
+    printf "# Configuration file for the quickcs (quick codespace) GitHub CLI extension.\n\n" > $CONFIG_FILE
+    printf "REPO=\"$REPO\" # e.g. hubwriter/quickcs\n" >> $CONFIG_FILE
+    printf "DEVCONTAINER=\"$DEVCONTAINER\" # e.g. .devcontainer/custom-config/devcontainer.json.\n" >> $CONFIG_FILE
+    printf "                # Set an empty string, or delete the DEVCONTAINER entry, to use the default configuration.\n" >> $CONFIG_FILE
+    printf "MACHINE=\"$MACHINE\" # a valid machine type string\n" >> $CONFIG_FILE
+    printf "TIMEOUT=\"${TIMEOUT}m\" # minutes in the range 5-240\n" >> $CONFIG_FILE
+    printf "RETENTION=\"${RETENTION}h\" # hours in the range 0-720\n" >> $CONFIG_FILE
+    printf "REQUEST_BRANCH=$REQUEST_BRANCH # Set to true to open the codespace in a browser, or false to open in VS Code.\n" >> $CONFIG_FILE
+    printf "OPEN_IN_BROWSER=$OPEN_IN_BROWSER # Set to true to request a branch name, or false to use the default branch.\n" >> $CONFIG_FILE
+
+    echo "The configuration file $CONFIG_FILE has been created. You can edit it to change the default settings."
+fi
+
+# Load the config file.
+source ~/.gh-quickcs.cfg
 
 echo -e "\nCreate a new codespace for the $REPO repo."
 read -p "Enter a codespace display name: " DISPLAYNAME
 
-if [ "$REQUEST_BRANCH" = true ] ; then
+if [ "$REQUEST_BRANCH" = true ]; then
     read -p "Enter a name for a new branch (or press Enter to use the default branch): " BRANCH
 fi
 
-CREATE_COMMAND="gh cs create -R $REPO --devcontainer-path $DEVCONTAINER -d '$DISPLAYNAME' --idle-timeout $TIMEOUT -m $MACHINE --retention-period $RETENTION"
+CREATE_COMMAND="gh cs create -R $REPO -d '$DISPLAYNAME' --idle-timeout $TIMEOUT -m $MACHINE --retention-period $RETENTION"
+if [ ! -z "$DEVCONTAINER" ]; then # If DEVCONTAINER is set and not empty
+    CREATE_COMMAND="$CREATE_COMMAND --devcontainer-path $DEVCONTAINER"
+fi
 
-if [[ "$BRANCH" =~ ( |\') ]]
-then
+if [[ "$BRANCH" =~ ( |\') ]]; then
   echo "Branch names cannot contain spaces or single quotes."
   exit 1
-elif [ ! -z ${BRANCH+x} ] # If BRANCH is set and not empty
-then
+elif [ ! -z ${BRANCH+x} ]; then # If BRANCH is set and not empty
   CREATE_COMMAND="$CREATE_COMMAND -b $BRANCH"
   # Get the SHA for the default branch:
   SHA=$(eval "gh api repos/$REPO/git/ref/heads/main --jq .object.sha")
@@ -41,17 +89,24 @@ then
 fi
 
 echo $CREATE_COMMAND; echo
-OUTPUT=$(eval $CREATE_COMMAND)
+# OUTPUT=$(eval $CREATE_COMMAND)
 
-if [ "$OPEN_IN_BROWSER" = true ]
-then
-  OPEN_COMMAND="gh codespace code -w -c '$OUTPUT'"
+
+
+
+# Create the codespace in a subshell to allow interactive input
+bash -c "$CREATE_COMMAND"
+
+# Get the name of the most recently created codespace
+NEW_CODESPACE=$(gh cs list | tail -1 | awk '{print $1}')
+
+if [ "$OPEN_IN_BROWSER" = true ]; then
+  OPEN_COMMAND="gh codespace code -w -c '$NEW_CODESPACE'"
 else
-  OPEN_COMMAND="gh codespace code -c '$OUTPUT'"
+  OPEN_COMMAND="gh codespace code -c '$NEW_CODESPACE'"
 fi
 
-if [ ! -z "$OUTPUT" ]
-then
-  echo "The internal name for your new codespace is: $OUTPUT"
+if [ ! -z "$NEW_CODESPACE" ]; then
+  echo "Codespace created. Internal name: $NEW_CODESPACE. Display name: $DISPLAYNAME."; echo
   eval $OPEN_COMMAND
 fi
