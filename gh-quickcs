@@ -89,10 +89,6 @@ elif [ ! -z ${BRANCH+x} ]; then # If BRANCH is set and not empty
 fi
 
 echo $CREATE_COMMAND; echo
-# OUTPUT=$(eval $CREATE_COMMAND)
-
-
-
 
 # Create the codespace in a subshell to allow interactive input
 bash -c "$CREATE_COMMAND"
