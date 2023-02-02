@@ -2,14 +2,6 @@
 
 A GitHub CLI extension that lets you quickly create a new codespace for a preconfigured repository.
 
-After installing this extension, _before you use it,_ change the value of `REPO` in your local copy of [the gh-quickcs file](https://github.com/hubwriter/gh-quickcs/blob/main/gh-quickcs) to the URL `OWNER/REPO-NAME` of your repo - for example:
-
-```
-REPO="your-name/your-repo"
-```
-
-You can also change any of the other settings for the codespace in that file.
-
 ## 📦 Installation
 
 1. If you haven't already, install the `gh` CLI - see the [installation](https://github.com/cli/cli#installation)
@@ -40,9 +32,10 @@ You can also change any of the other settings for the codespace in that file.
    ```sh
    gh quickcs
    ```
-   
-1. Enter a display name for the codespace. Don't use quote marks around the name. The name can include spaces and hyphens.
-1. Enter the name of a new branch you want to create, or press Enter to use the default branch. (Note this option can be turned off by setting `REQUEST_BRANCH` to `false` in the `gh-doccs` script.)
+
+1. _On first run only:_ The first time you use the extension it will ask you to input configuration options. This is a one-time operation. The values you enter are stored in `~/.gh-quickcs.cfg`. You can edit this file if you need to change the values, but the rationale of this script is that you want to create the same kind of codespace for the same repository, so you won't need to change these values once you've set them.
+1. Enter a display name for the codespace you want to create. Don't use quote marks around the name. The name can include spaces and hyphens.
+1. _Optionally (depending on your configuration settings):_ Enter the name of a new branch you want to create, or press Enter to use the default branch.
 
 For example:<br>
 <img width="1057" alt="image" src="https://user-images.githubusercontent.com/54933897/216063640-2d773aae-595e-45c2-9f07-05ce256dc50c.png">
