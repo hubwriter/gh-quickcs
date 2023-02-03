@@ -22,8 +22,6 @@ A GitHub CLI extension that lets you quickly create a new codespace for a precon
    Resolving deltas: 100% (6/6), done.
    ✓ Installed extension hubwriter/gh-quickcs
    ```
-   
-1. Edit the `/Users/YOURNAME/.local/share/gh/extensions/gh-quickcs` file, changing the value of `REPO` to the owner and name that identifies the repository for which you want to create codespaces - for example: `my-name/my-repo`.
 
 ## ⚡️ Usage
 
