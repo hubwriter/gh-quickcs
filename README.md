@@ -42,6 +42,6 @@ For example:<br>
 
 ## ⭐ If you like it, star it!
 
-If you like this extension, please start the repo by clicking **☆ Star** top right of this page.
+If you like this CLI extension, please star the repo by clicking **☆ Star** top right of this page.
 
 This helps raise the profile of this extension. Thanks.
