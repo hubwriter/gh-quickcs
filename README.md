@@ -33,7 +33,7 @@ A GitHub CLI extension that lets you quickly create a new codespace for a precon
 
 1. _On first run only:_ The first time you use the extension it will ask you to input configuration options. This is a one-time operation. The values you enter are stored in `~/.gh-quickcs.cfg`. You can edit this file if you need to change the values, but the rationale of this script is that you want to create the same kind of codespace for the same repository, so you won't need to change these values once you've set them.
 1. Enter a display name for the codespace you want to create. Don't use quote marks around the name. The name can include spaces and hyphens.
-1. _Optionally (depending on your configuration settings):_ Enter the name of a new branch you want to create, or press Enter to use the default branch.
+1. _Optionally (depending on whether you set true or false for the REQUEST_BRANCH config setting):_ Enter the name of a new branch you want to create, or press Enter to use the default branch.
 
 For example:<br>
 <img width="1057" alt="image" src="https://user-images.githubusercontent.com/54933897/216063640-2d773aae-595e-45c2-9f07-05ce256dc50c.png">
