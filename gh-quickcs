@@ -54,8 +54,8 @@ if [ ! -f "$CONFIG_FILE" ]; then
     printf "MACHINE=\"$MACHINE\" # a valid machine type string\n" >> $CONFIG_FILE
     printf "TIMEOUT=\"${TIMEOUT}m\" # minutes in the range 5-240\n" >> $CONFIG_FILE
     printf "RETENTION=\"${RETENTION}h\" # hours in the range 0-720\n" >> $CONFIG_FILE
-    printf "REQUEST_BRANCH=$REQUEST_BRANCH # Set to true to open the codespace in a browser, or false to open in VS Code.\n" >> $CONFIG_FILE
-    printf "OPEN_IN_BROWSER=$OPEN_IN_BROWSER # Set to true to request a branch name, or false to use the default branch.\n" >> $CONFIG_FILE
+    printf "REQUEST_BRANCH=$REQUEST_BRANCH # Set to true to request a branch name, or false to use the default branch.\n" >> $CONFIG_FILE
+    printf "OPEN_IN_BROWSER=$OPEN_IN_BROWSER # Set to true to open the codespace in a browser, or false to open in VS Code.\n" >> $CONFIG_FILE
 
     echo "The configuration file $CONFIG_FILE has been created. You can edit it to change the default settings."
 fi
